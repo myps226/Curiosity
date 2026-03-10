@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Curiosity Machine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Patrick Hand', cursive;
+        background-color: #fdfbf7;
+        color: #2d2d2d;
+        overflow-x: hidden;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Kalam', cursive;
+      }
+      .wobbly-border {
+        border: 3px solid #2d2d2d;
+        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      }
+      .wobbly-shadow {
+        box-shadow: 6px 6px 0px 0px #2d2d2d;
+      }
+      .wobbly-shadow-sm {
+        box-shadow: 3px 3px 0px 0px #2d2d2d;
+      }
+      .wobbly-pill {
+        border-radius: 50px 15px 40px 20px / 20px 40px 15px 50px;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #fdfbf7;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e5e0d8;
+        border: 2px solid #2d2d2d;
+        border-radius: 10px;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.44.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.577.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.35.2"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
