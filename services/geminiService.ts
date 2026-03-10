@@ -6,7 +6,14 @@ export const generateAICuriosity = async (
   category: Category,
   difficulty: Difficulty
 ): Promise<AIPromptResponse> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = process.env.API_KEY;
+  
+  if (!apiKey) {
+    console.error("API_KEY is missing. Please set it in your environment variables (e.g., Vercel Project Settings).");
+    throw new Error("API_KEY_MISSING");
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
   
   const prompt = `
     Generate a Curiosity Idea Generator list using:
@@ -49,7 +56,7 @@ export const generateAICuriosity = async (
     const text = response.text || "{}";
     return JSON.parse(text) as AIPromptResponse;
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("Gemini API Error details:", error);
     throw error;
   }
 };

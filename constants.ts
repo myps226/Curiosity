@@ -28,7 +28,7 @@ export const INITIAL_TOPICS: CuriosityTopic[] = [
       "Can we find the Fibonacci sequence in underwater structures?",
       "What determines the direction of the spiral (clockwise vs counter)?",
       "Do different calcium concentrations in water affect shell thickness?",
-      "How do internal chambers help some nautiluses float?"
+      "How do internal chambers help some mollusks regulate buoyancy?"
     ],
     direction: "Focus on the intersection of mathematics and biological survival.",
     activity: "Draw a spiral and see if you can fit it perfectly into a rectangle."
@@ -41,9 +41,9 @@ export const INITIAL_TOPICS: CuriosityTopic[] = [
       "Is identity built by what we do or what we remember?",
       "How much of our personality is just a reaction to our history?",
       "Could two people with identical memories eventually diverge?",
+      "If you forget a crime you committed, are you still the criminal?",
       "What role does the physical body play in our sense of self?",
-      "Would empathy be absolute if we shared all experiences?",
-      "Does a unique future make a unique person even with a shared past?"
+      "Would empathy be absolute if we shared all experiences?"
     ],
     direction: "Explore the concept of the 'Self' beyond data storage.",
     activity: "Recall a core memory and imagine how it would feel if it happened to someone else."
@@ -55,10 +55,10 @@ export const INITIAL_TOPICS: CuriosityTopic[] = [
     prompts: [
       "Would we have more green spaces or higher density?",
       "How would social interactions change in a walking-only city?",
-      "What would happen to the 'suburbs'?",
-      "How would vertical transportation evolve in building design?",
+      "What would happen to the concept of the 'suburbs'?",
+      "How would vertical transportation (elevators) change urban flow?",
       "Would local noise levels drastically improve public health?",
-      "How would 'commerce' look if delivery trucks didn't exist?"
+      "How would fresh food delivery work without internal combustion?"
     ],
     direction: "Discuss human-centric design vs infrastructure-centric design.",
     activity: "Walk 15 minutes in your neighborhood and count how many spaces are for people vs machines."
@@ -69,11 +69,11 @@ export const INITIAL_TOPICS: CuriosityTopic[] = [
     question: "Do trees actually 'talk' to each other underground?",
     prompts: [
       "What role do fungal networks (mycorrhizae) play in nutrient sharing?",
-      "Can a mother tree recognize its own saplings?",
-      "How do forests coordinate defenses against pests?",
-      "Is there a 'language' of chemical signals we are missing?",
+      "Can a mother tree recognize and favor its own saplings?",
+      "How do forests coordinate chemical defenses against pests?",
+      "Is there a 'language' of root-emitted electrical signals?",
       "Does tree competition look different in diverse vs mono-crop forests?",
-      "How does the speed of tree 'conversations' compare to human time?"
+      "How does the time-scale of tree communication differ from ours?"
     ],
     direction: "Explore the Wood Wide Web and symbiotic relationships.",
     activity: "Find two different tree species nearby and look for where their roots might cross."
@@ -84,13 +84,13 @@ export const INITIAL_TOPICS: CuriosityTopic[] = [
     question: "Why did ancient civilizations across the world all build pyramids?",
     prompts: [
       "Is it the most stable shape for primitive stone stacking?",
-      "Did different cultures communicate or reach the same idea independently?",
-      "What do the alignments with stars tell us about their priorities?",
-      "Were they always intended as tombs or did they serve multiple purposes?",
-      "How did they manage the logistics of food for thousands of workers?",
+      "Did different cultures reach the same idea independently?",
+      "What do alignments with specific stars tell us about their priorities?",
+      "Were they always intended as tombs or were they energy markers?",
+      "How did they manage the logistics of feeding thousands of workers?",
       "Why did we stop building giant stone monuments for thousands of years?"
     ],
     direction: "Investigate structural engineering and cultural symbolism.",
-    activity: "Try to stack different household items into a pyramid shape and observe which are hardest."
+    activity: "Try to stack different household items into a pyramid shape and observe stability."
   }
 ];

@@ -27,30 +27,28 @@ const App: React.FC = () => {
     setTimeout(() => {
       setIsSpinning(false);
       
-      // Filter topics based on selection
       let pool = [...INITIAL_TOPICS];
       if (selectedCategory !== 'Random') {
         const filtered = pool.filter(t => t.category === selectedCategory);
-        // If we have a match in our curated list, use it. 
-        // Otherwise, create a thematic placeholder so the user isn't confused.
+        
         if (filtered.length > 0) {
           pool = filtered;
         } else {
-          // Fallback dynamic placeholder for demo purposes if static list is missing a category
+          // Robust thematic fallback if static list doesn't have the specific category
           setCurrentTopic({
             id: 'dynamic-' + Date.now(),
             category: selectedCategory,
-            question: `What is the most mysterious thing about ${selectedCategory}?`,
+            question: `What is the most mysterious unanswered question in the field of ${selectedCategory}?`,
             prompts: [
-              `How does ${selectedCategory} influence our daily lives?`,
-              `What would happen if ${selectedCategory} suddenly changed?`,
-              `Why is the history of ${selectedCategory} so complex?`,
-              `What is a common myth about ${selectedCategory}?`,
-              `How might ${selectedCategory} look 100 years from now?`,
-              `Who are the leading pioneers in ${selectedCategory} today?`
+              `How does ${selectedCategory} influence our daily perception of reality?`,
+              `What would happen if the laws governing ${selectedCategory} were inverted?`,
+              `Why is the history of ${selectedCategory} often misunderstood?`,
+              `What is one thing about ${selectedCategory} that experts still disagree on?`,
+              `How might ${selectedCategory} look 500 years into the future?`,
+              `What is the most counter-intuitive fact about ${selectedCategory}?`
             ],
-            direction: "Explore the fundamental unknowns of this field.",
-            activity: "Write down three things you think you know about this, then fact-check them."
+            direction: `A deep dive into the fundamental unknowns and paradoxes of ${selectedCategory}.`,
+            activity: "Try to explain a basic concept of this topic to someone who has never heard of it."
           });
           return;
         }
@@ -91,8 +89,8 @@ const App: React.FC = () => {
         </p>
       </header>
 
-      {/* Selectors - Added more spacing (mb-32) to prevent overlap with spinner when open */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-32 z-50 relative">
+      {/* Selectors - Increased margin-bottom (mb-56) to prevent overlap with spinner when menu is open */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-56 z-50 relative">
         <BubbleSelector 
           label="Topic" 
           options={CATEGORIES} 
@@ -143,12 +141,6 @@ const App: React.FC = () => {
       <div className="fixed top-20 left-10 pointer-events-none opacity-10 hidden lg:block">
         <svg width="200" height="200" viewBox="0 0 200 200">
           <path d="M20,100 C20,20 180,20 180,100 C180,180 20,180 20,100" stroke="#2d2d2d" strokeWidth="3" fill="none" strokeDasharray="5,5" />
-        </svg>
-      </div>
-      <div className="fixed bottom-20 right-20 pointer-events-none opacity-10 hidden lg:block">
-         <svg width="150" height="150" viewBox="0 0 100 100">
-          <rect x="10" y="10" width="80" height="80" rx="10" stroke="#2d2d2d" strokeWidth="2" fill="none" transform="rotate(15, 50, 50)" />
-          <rect x="20" y="20" width="60" height="60" rx="5" stroke="#2d2d2d" strokeWidth="2" fill="none" transform="rotate(-10, 50, 50)" />
         </svg>
       </div>
     </div>
