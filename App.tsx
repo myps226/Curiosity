@@ -8,7 +8,7 @@ import BubbleSelector from './components/BubbleSelector';
 import TopicSpinner from './components/TopicSpinner';
 import TopicCard from './components/TopicCard';
 import AIResultList from './components/AIResultList';
-import { generateAICuriosity } from './services/geminiService';
+import { generateAICuriosity, generateDynamicTopic } from './services/geminiService';
 
 const App: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>('Random');
@@ -18,45 +18,38 @@ const App: React.FC = () => {
   const [aiResponse, setAiResponse] = useState<AIPromptResponse | null>(null);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
 
-  const handleSpin = () => {
+  const handleSpin = async () => {
     setIsSpinning(true);
     setAiResponse(null);
     setCurrentTopic(null);
 
-    // Simulate mechanical delay
-    setTimeout(() => {
-      setIsSpinning(false);
+    try {
+      // Start AI generation immediately
+      const dynamicTopicPromise = generateDynamicTopic(selectedCategory, selectedDifficulty);
       
+      // Ensure the spin animation lasts at least 2 seconds for dramatic effect
+      const [newTopic] = await Promise.all([
+        dynamicTopicPromise,
+        new Promise(resolve => setTimeout(resolve, 2000))
+      ]);
+
+      setCurrentTopic(newTopic);
+    } catch (err) {
+      console.warn("Dynamic generation failed, falling back to local pool.", err);
+      // Fallback logic
       let pool = [...INITIAL_TOPICS];
       if (selectedCategory !== 'Random') {
         const filtered = pool.filter(t => t.category === selectedCategory);
-        
-        if (filtered.length > 0) {
-          pool = filtered;
-        } else {
-          // Robust thematic fallback if static list doesn't have the specific category
-          setCurrentTopic({
-            id: 'dynamic-' + Date.now(),
-            category: selectedCategory,
-            question: `What is the most mysterious unanswered question in the field of ${selectedCategory}?`,
-            prompts: [
-              `How does ${selectedCategory} influence our daily perception of reality?`,
-              `What would happen if the laws governing ${selectedCategory} were inverted?`,
-              `Why is the history of ${selectedCategory} often misunderstood?`,
-              `What is one thing about ${selectedCategory} that experts still disagree on?`,
-              `How might ${selectedCategory} look 500 years into the future?`,
-              `What is the most counter-intuitive fact about ${selectedCategory}?`
-            ],
-            direction: `A deep dive into the fundamental unknowns and paradoxes of ${selectedCategory}.`,
-            activity: "Try to explain a basic concept of this topic to someone who has never heard of it."
-          });
-          return;
-        }
+        pool = filtered.length > 0 ? filtered : pool;
       }
-      
       const randomTopic = pool[Math.floor(Math.random() * pool.length)];
-      setCurrentTopic(randomTopic);
-    }, 2000);
+      setCurrentTopic({
+        ...randomTopic,
+        id: 'fallback-' + Date.now(), // Unique ID so React re-renders card animation
+      });
+    } finally {
+      setIsSpinning(false);
+    }
   };
 
   const handleGenerateAI = async () => {
@@ -89,7 +82,7 @@ const App: React.FC = () => {
         </p>
       </header>
 
-      {/* Selectors - Increased margin-bottom (mb-56) to prevent overlap with spinner when menu is open */}
+      {/* Selectors */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-56 z-50 relative">
         <BubbleSelector 
           label="Topic" 
@@ -111,9 +104,12 @@ const App: React.FC = () => {
       <main className="flex flex-col items-center relative z-10">
         <TopicSpinner isSpinning={isSpinning} onSpin={handleSpin} />
 
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {currentTopic && !isSpinning && (
-            <div className="flex flex-col items-center w-full mt-8">
+            <motion.div 
+              key={currentTopic.id}
+              className="flex flex-col items-center w-full mt-8"
+            >
               <TopicCard 
                 topic={currentTopic} 
                 onGenerateAI={handleGenerateAI}
@@ -123,12 +119,12 @@ const App: React.FC = () => {
               {aiResponse && (
                 <AIResultList data={aiResponse} />
               )}
-            </div>
+            </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      {/* Decorative Hand-Drawn Elements */}
+      {/* Footer Decoration */}
       <div className="fixed bottom-4 right-4 flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity z-0">
         <div className="text-right hidden sm:block">
           <p className="text-xs font-bold leading-tight">STAY<br/>CURIOUS</p>
@@ -136,12 +132,6 @@ const App: React.FC = () => {
         <div className="p-3 bg-white border-2 border-[#2d2d2d] wobbly-pill wobbly-shadow-sm">
           <Info size={20} />
         </div>
-      </div>
-
-      <div className="fixed top-20 left-10 pointer-events-none opacity-10 hidden lg:block">
-        <svg width="200" height="200" viewBox="0 0 200 200">
-          <path d="M20,100 C20,20 180,20 180,100 C180,180 20,180 20,100" stroke="#2d2d2d" strokeWidth="3" fill="none" strokeDasharray="5,5" />
-        </svg>
       </div>
     </div>
   );
